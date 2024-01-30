@@ -17,7 +17,7 @@ public class Ex01 {
         }
 		    System.out.println();
 		
-		    //별추가
+		    //별추가--
 			for(int j=1; j<=5; j++) {
 				
 				  for(int i = 1; i < j; i++) {
