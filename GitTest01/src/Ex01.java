@@ -31,7 +31,7 @@ public class Ex01 {
 			
 			
 
-			System.out.println("충돌 만들어보기");
+			System.out.println("이상한것같은데");
 			
 			
 			
