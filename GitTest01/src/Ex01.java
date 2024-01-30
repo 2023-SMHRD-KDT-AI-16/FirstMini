@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Ex01 {
 
@@ -5,10 +6,16 @@ public class Ex01 {
 		System.out.println("첫번째 커밋!");
 		System.out.println("팀원1 두번째 커밋!");
 		System.out.println("팀원2 세번째 커밋!");
-		System.out.println("팀원3 네번째 커밋!");
 		System.out.println("팀원4 다섯번째 커밋!");
 		System.out.println("팀원5 여섯번째 커밋!");
 		System.out.println("건형씨 확인~");
+		System.out.println("확인했습니다~");
+		
+		Scanner sc = new Scanner(System.in);
+		for(int i = 21; i <= 57; i=i+2 ) {
+			System.out.println( i + " ");
+        }
+		    System.out.println();
 	}
 
 }
