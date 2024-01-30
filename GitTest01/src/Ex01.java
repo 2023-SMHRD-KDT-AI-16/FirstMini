@@ -28,6 +28,12 @@ public class Ex01 {
 				  }
 				  System.out.println();
 				  }
+			
+			
+			System.out.println("충돌 만들어보기");
+			
+			
+			
 	}
 	
 	
