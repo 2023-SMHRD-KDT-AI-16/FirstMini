@@ -30,7 +30,8 @@ public class Ex01 {
 				  }
 			
 			
-			System.out.println("충돌 만들기 2222222");
+
+			System.out.println("충돌 만들어보기");
 			
 			
 			
