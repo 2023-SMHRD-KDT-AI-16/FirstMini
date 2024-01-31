@@ -3,7 +3,7 @@ package Controller;
 import java.util.Random;
 import java.util.Scanner;
 
-public class mianController {
+public class mainController {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static Random rd = new Random();
