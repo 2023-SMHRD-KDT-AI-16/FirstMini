@@ -8,11 +8,10 @@ public class memberDTO {
 	
 	public memberDTO() {}
 	
-	public memberDTO(String id, String pw, String name, int max) {
+	public memberDTO(String id, String pw, String name) {
 		this.id = id;
 		this.pw = pw;
-		this.Name = name;
-		this.Max = max;
+		this.Name = name;		
 	}
 
 	public String getId() {

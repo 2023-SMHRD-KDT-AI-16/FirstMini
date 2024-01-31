@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import Controller.memberDAO;
 import Model.memberDTO;
 
 public class main {
