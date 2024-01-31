@@ -3,6 +3,9 @@ package Controller;
 import java.util.Random;
 import java.util.Scanner;
 
+import Model.memberDAO;
+import Model.memberDTO;
+
 public class mainController {
 
 	private static Scanner sc = new Scanner(System.in);
@@ -12,26 +15,77 @@ public class mainController {
 		// 로그인 or 회원가입
 		boolean logEnd = false;
 
-		while (true) {
+		try (Scanner sc = new Scanner(System.in)) {
+			memberDAO mdao = new memberDAO();
+			// ArrayList<memberDTO> dtoList = new ArrayList<memberDTO>();
 
-			System.out.println("========================음악이름 맞추기 게임==========================");
-			System.out.println("========================1.로그인    2.회원가입 ======================");
+			while (true) {
+				System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
-			String num = sc.next();
+				int choice = sc.nextInt();
+				if (choice == 6) {
+					System.out.println("종료합니다.");
+					break;
 
-			if (num.equals("1")) {
+					// =======회원가입
+				} else if (choice == 1) {
+					System.out.println("=== 회원가입 ===");
+					System.out.print("사용할 아이디를 입력하세요: ");
+					String join_id = sc.next();
+					if (mdao.id_Check(join_id) == true) { // 중복id확인
+						System.out.println("중복된 ID입니다. 다시입력해주세요.");
+						break;
+					}
 
-				// 로그인 호출//
-				logEnd = true; // 로그인 되면 넘어가기
+					System.out.print("비밀번호를 입력하세요: ");
+					String join_pw = sc.next();
 
-			} else if (num.equals("2")) {
+					System.out.print("이름을 입력하세요: ");
+					String join_name = sc.next();
 
-				// 회원가입 호출//
+					memberDTO mdto = new memberDTO(join_id, join_pw, join_name);
+					int row = mdao.joinMember(mdto);
 
-			}
+					if (row > 0) {
+						System.out.println("회원가입을 축하합니다!");
+					} else {
+						System.out.println("insert fail");
+					}
 
-			if (logEnd) {
-				break;
+					// ========로그인
+				} else if (choice == 2) {
+					System.out.println("===로그인===");
+					System.out.print(" 아이디: ");
+					String log_id = sc.next();
+					System.out.print("비밀번호: ");
+					String log_pw = sc.next();
+
+					mdao = new memberDAO();
+					memberDTO mdto = mdao.login(log_id, log_pw);
+					if (mdto != null) {
+						System.out.println("로그인 되었습니다.");
+						logEnd = true;
+					} else {
+						System.out.println("잘못 입력 했습니다.");
+					}
+					// ========탈퇴
+				} else if (choice == 3) {
+
+					System.out.print("탈퇴할 아이디를 입력하세요: ");
+					String delete_id = sc.next();
+
+					mdao = new memberDAO();
+					int row = mdao.delete(delete_id);
+
+					if (row > 0) {
+						System.out.println("delete success");
+					} else {
+						System.out.println("delete fail");
+					}
+				}
+				if (logEnd) {
+					break;
+				}
 			}
 
 		}
@@ -70,9 +124,9 @@ public class mainController {
 		int num = 100; // 점수
 
 		System.out.println("게임을 시작합니다. 가수와제목을 맞추면 +100점 힌트는 감점이 있습니다.");
-		
+
 		boolean pass = false;
-		
+
 		int[] index = new int[5]; // 5개의 숫자를 선택
 
 		for (int i = 0; i < 5; i++) { // 중복제거
@@ -88,7 +142,7 @@ public class mainController {
 
 		for (int i = 0; i < 5; i++) {
 
-			System.out.println(i+1+"번째 음악을 재생합니다.");
+			System.out.println(i + 1 + "번째 음악을 재생합니다.");
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
