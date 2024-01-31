@@ -120,14 +120,17 @@ public class mianController {
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						num -= 20;
+						break;
 					}
 					if (hint.equals("2")) {
 						System.out.println("가수의 초성은 ㅇㅇㅇ 노래의 초성은 ㅇㅇㅇㅇ 입니다.");
 						num -= 40;
+						break;
 					}
 					if (hint.equals("3")) {
 						System.out.println("노래제목의 초성은 ㅇㅇㅇㅇㅇㅇㅇㅇ 입니다.");
 						num -= 30;
+						break;
 					}
 					if (hint.equals("4")) {
 						System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
