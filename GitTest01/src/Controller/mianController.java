@@ -45,7 +45,7 @@ public class mianController {
 
 				int numMax = game1();
 
-				System.out.println("당신은 "+numMax+"점을 획득하였습니다.");
+				System.out.println("당신은 " + numMax + "점을 획득하였습니다.");
 
 				// 한곡맞추기 클래스 호출//1
 				// 게임이 끝나면 점수만 리턴//
@@ -70,12 +70,14 @@ public class mianController {
 		int num = 100; // 점수
 
 		System.out.println("게임을 시작합니다.");
+		
+		boolean pass = false;
+		
+		int[] index = new int[5]; // 5개의 숫자를 선택
 
-		int[] index = new int[5];    // 5개의 숫자를 선택
-
-		for (int i = 0; i < 5; i++) {  // 중복제거
-			index[i] = rd.nextInt(30);    // 0~29 사이 숫자생성
-			for (int j = 0; j < i; j++) {      //중복제거
+		for (int i = 0; i < 5; i++) { // 중복제거
+			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
+			for (int j = 0; j < i; j++) { // 중복제거
 				if (index[i] == index[j]) {
 					i--;
 					break;
@@ -86,9 +88,9 @@ public class mianController {
 
 		for (int i = 0; i < 5; i++) {
 
-			System.out.println("음악을 재생합니다.");
+			System.out.println(i+1+"번째 음악을 재생합니다.");
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
-			while (true) {      //계속반복 맞추면 break 점수가 0점이하면 종료
+			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
 				System.out.print("가수이름을 입력하세요>");
 				String singerName = sc.next();
 				System.out.print("노래제목을 입력하세요(띄어쓰기없이 입력해주세요)>");
@@ -111,35 +113,46 @@ public class mianController {
 				}
 
 				System.out.println("힌트를 받으시겠습니까?");
-				System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)====");
-				String hint = sc.next();
-				if (hint.equals("1")) {
-					System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
-					num -= 20;
-				}
-				if (hint.equals("2")) {
-					System.out.println("가수의 초성은 ㅇㅇㅇ 노래의 초성은 ㅇㅇㅇㅇ 입니다.");
-					num -= 40;
-				}
-				if (hint.equals("3")) {
-					System.out.println("노래제목의 초성은 ㅇㅇㅇㅇㅇㅇㅇㅇ 입니다.");
-					num -=30;					
-				}
-				if (hint.equals("4")) {
-					System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
-					break;
-				}
 
+				while (true) {
+					System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)=5.힌트없이 다시입력===");
+					String hint = sc.next();
+					if (hint.equals("1")) {
+						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
+						num -= 20;
+					}
+					if (hint.equals("2")) {
+						System.out.println("가수의 초성은 ㅇㅇㅇ 노래의 초성은 ㅇㅇㅇㅇ 입니다.");
+						num -= 40;
+					}
+					if (hint.equals("3")) {
+						System.out.println("노래제목의 초성은 ㅇㅇㅇㅇㅇㅇㅇㅇ 입니다.");
+						num -= 30;
+					}
+					if (hint.equals("4")) {
+						System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
+						pass = true;
+						break;
+					}
+					if (hint.equals("5")) {
+						System.out.println("힌트없이 다시한번 입력합니다.");
+						break;
+					}
+
+				}
 				if (num <= 0) {
 					System.out.println("점수가 없어요 게임을 종료합니다.");
 					return num;
+				}
+				if (pass) {
+					pass = false;
+					break;
 				}
 
 			}
 
 		}
-		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n"
-				+ "˖°ฅ(  • · •  ฅ)\r\n"+"5문제를 모두 풀었습니다.");
+		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
 	}
 }
