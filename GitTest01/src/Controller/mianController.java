@@ -111,7 +111,7 @@ public class mianController {
 				}
 
 				System.out.println("힌트를 받으시겠습니까?");
-				System.out.print("=====1.다시듣기(-20점)=2.초성힌트(-40점)=3.PASS(감점없음)=====");
+				System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)====");
 				String hint = sc.next();
 				if (hint.equals("1")) {
 					System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
@@ -122,6 +122,10 @@ public class mianController {
 					num -= 40;
 				}
 				if (hint.equals("3")) {
+					System.out.println("노래제목의 초성은 ㅇㅇㅇㅇㅇㅇㅇㅇ 입니다.");
+					num -=30;					
+				}
+				if (hint.equals("4")) {
 					System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
 					break;
 				}
