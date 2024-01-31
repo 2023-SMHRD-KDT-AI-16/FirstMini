@@ -69,7 +69,7 @@ public class mianController {
 
 		int num = 100; // 점수
 
-		System.out.println("게임을 시직합니다.");
+		System.out.println("게임을 시작합니다.");
 
 		int[] index = new int[5];    // 5개의 숫자를 선택
 
