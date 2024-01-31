@@ -38,7 +38,7 @@ public class mianController {
 
 		while (true) {
 			System.out.println("========================음악이름 맞추기 게임==========================");
-			System.out.println("===================1.한곡맞추기  2.두곡맞추기(동시재생)==================");
+			System.out.println("===================1.한곡퀴즈  2.두곡퀴즈(동시재생)==================");
 
 			String num = sc.next();
 			if (num.equals("1")) {
