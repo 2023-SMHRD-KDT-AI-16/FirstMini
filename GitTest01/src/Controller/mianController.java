@@ -69,7 +69,7 @@ public class mianController {
 
 		int num = 100; // 점수
 
-		System.out.println("게임을 시작합니다.");
+		System.out.println("게임을 시작합니다. 가수와제목이름을 맞추면 +100점 힌트는 감점이 있습니다.");
 		
 		boolean pass = false;
 		
