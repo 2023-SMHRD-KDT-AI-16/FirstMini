@@ -324,7 +324,7 @@ delay(2000);
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
-						System.out.println("00:00 ───*̥❄︎‧˚─── 0:10");
+						System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
 						num -= 20;
 						break;
 					}
