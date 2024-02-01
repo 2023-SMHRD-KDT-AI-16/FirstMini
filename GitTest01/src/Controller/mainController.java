@@ -1,3 +1,4 @@
+
 package Controller;
 
 import java.util.Random;
@@ -23,6 +24,7 @@ public class mainController {
 				System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
 				int choice = sc.nextInt();
+				
 				if (choice == 6) {
 					System.out.println("종료합니다.");
 					break;
@@ -220,4 +222,6 @@ public class mainController {
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
 	}
-}
+	
+	}
+
