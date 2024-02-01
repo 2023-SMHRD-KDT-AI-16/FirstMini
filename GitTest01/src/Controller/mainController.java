@@ -24,6 +24,8 @@ public class mainController {
 
 		show.gameStart();
 		
+		mp3.play("../GitTest01/src/Music_LIst/거북이 - 비행기 MP3. 10초.m4a");
+		
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
@@ -145,7 +147,7 @@ public class mainController {
 		int[] index = new int[5]; // 5개의 숫자를 선택
 
 		for (int i = 0; i < 5; i++) { // 중복제거
-			index[i] = rd.nextInt(30)+1; // 0~29 사이 숫자생성
+			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
 			for (int j = 0; j < i; j++) { // 중복제거
 				if (index[i] == index[j]) {
 					i--;
@@ -158,13 +160,13 @@ public class mainController {
 
 			System.out.println(i + 1 + "번째 음악을 재생합니다.");
 			sdto = mdao.selMusic(index[i]);
-			
-//			System.out.println(sdto.getSinger());  //확인용
-//			System.out.println(sdto.getSong());    //확인용
+			System.out.println(sdto.getSinger());
+			System.out.println(sdto.getSong());
 
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 			mp3.play(sdto.getFolder());
-			delay(3000);
+			System.err.println(sdto.getFolder());
+			
 			mp3.stop();
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
@@ -202,7 +204,7 @@ public class mainController {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 						mp3.play(sdto.getFolder());
-						delay(3000);
+						System.err.println(sdto.getFolder());
 						
 						mp3.stop();
 						num -= 20;
@@ -240,8 +242,8 @@ public class mainController {
 				}
 
 			}
-System.out.println("다음문제로 넘어갑니다.");
-delay(2000);
+System.out.println("다음문제로 넘어갑니다.아무키나 입력해주세요");
+sc.next();
 		}
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
@@ -265,7 +267,7 @@ delay(2000);
 		int[] index = new int[5]; // 10개의 숫자를 선택
 
 		for (int i = 0; i < index.length; i++) { // 중복제거
-			index[i] = rd.nextInt(30)+1; // 0~29 사이 숫자생성
+			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
 			for (int j = 0; j < i; j++) { // 중복제거
 				if (index[i] == index[j]) {
 					i--;
