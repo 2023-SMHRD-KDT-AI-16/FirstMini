@@ -140,4 +140,37 @@ public class memberDAO {
 		}
 	}
 
+	public songDTO selMusic(int index) {
+		
+		getConn();
+		try {
+			String sql = "SELECT * FROM (SELECT ROWNUM AS NUM,SINGER,SINGERE,SONG,SONGE,SINGERH,SONGH,FOLDER from song_list)X WHERE X.NUM = ?";
+			psmt = conn.prepareStatement(sql);
+			//System.out.println("flag");
+			psmt.setInt(1, index);
+			
+			rs = psmt.executeQuery();
+			songDTO sdto= null; 				
+			while(rs.next()) {
+				String select_singer = rs.getString(2);
+				String select_singerEng = rs.getString(3);
+				String select_song = rs.getString(4);
+				String select_songEng = rs.getString(5);
+				String select_hint = rs.getString(6);
+				String select_hintSong = rs.getString(7);
+				String select_path = rs.getString(8);
+								
+				sdto = new songDTO(select_singer,select_singerEng,select_song
+						,select_songEng,select_hint,select_hintSong,select_path);
+			}
+			return sdto;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+				
+	}
+	
 }
