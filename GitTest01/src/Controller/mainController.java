@@ -24,7 +24,7 @@ public class mainController {
 
 		show.gameStart();
 		
-//		mp3.play("../GitTest01/src/Music_LIst/거북이 - 비행기 MP3. 10초.mp3");
+		mp3.play("../GitTest01/src/Music_LIst/BTS (방탄소년단) - Butter 버터 MP3. 10초.mp3");
 		
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
