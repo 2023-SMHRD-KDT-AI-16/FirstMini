@@ -161,6 +161,7 @@ public class mainController {
 			System.out.println(sdto.getSong());
 
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
+			
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
 				System.out.print("가수이름을 입력하세요>");
