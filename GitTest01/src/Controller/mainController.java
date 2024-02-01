@@ -7,17 +7,21 @@ import java.util.Scanner;
 import Model.memberDAO;
 import Model.memberDTO;
 import Model.songDTO;
+import View.asc;
 
 public class mainController {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static Random rd = new Random();
+	public static asc show = new asc();
 
 	public static void main(String[] args) {
 		// 로그인 or 회원가입
 		boolean logEnd = false;
 
 		memberDAO mdao = new memberDAO();
+
+		show.gameStart();
 
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
@@ -110,7 +114,7 @@ public class mainController {
 				// 랭킹 출력 클래스 호출 내림차순 출력
 
 			} else if (num.equals("2")) {
-				
+
 				int numMax = game2();
 				System.out.println("당신은 " + numMax + "점을 획득하였습니다.");
 				// 두곡맞추기 클래스 호출 //
@@ -169,19 +173,20 @@ public class mainController {
 				if ((singerName.equals(sdto.getSinger()) || singerName.equals(sdto.getEngSinger()))
 						&& (singName.equals(sdto.getSong()) || singName.equals(sdto.getEngSong()))) {
 					num += 100;
-					System.out.println("맞았습니다.~ 100점 획득 " + num);
+					show.answer();
+					System.out.println("맞았습니다.~ 현재점수 : " + num);
 					break;
 				} else if ((singerName.equals(sdto.getSinger()) || singerName.equals(sdto.getEngSinger()))
 						&& !(singName.equals(sdto.getSong()) || singName.equals(sdto.getEngSong()))) {
 					num -= 20;
-					System.out.println("가수이름만 맞았어요~~ " + num);
+					System.out.println("가수이름만 맞았어요~~ 현재점수 : " + num);
 				} else if (!(singerName.equals(sdto.getSinger()) || singerName.equals(sdto.getEngSinger()))
 						&& (singName.equals(sdto.getSong()) || singName.equals(sdto.getEngSong()))) {
 					num -= 20;
-					System.out.println("노래제목만 맞았어요~~ " + num);
+					System.out.println("노래제목만 맞았어요~~ 현재점수 : " + num);
 				} else {
 					num -= 20;
-					System.out.println("맞은게 없어요~~ " + num);
+					System.out.println("맞은게 없어요~~ 현재점수 : " + num);
 				}
 
 				System.out.println("힌트를 받으시겠습니까?");
@@ -191,7 +196,7 @@ public class mainController {
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
-						System.out.println("10:00 ───*̥❄︎‧˚─── 0:03");
+						System.out.println("00:00 ───*̥❄︎‧˚─── 0:03");
 						num -= 20;
 						break;
 					}
@@ -217,6 +222,7 @@ public class mainController {
 
 				}
 				if (num <= 0) {
+					show.fail();
 					System.out.println("점수가 없어요 게임을 종료합니다.");
 					return num;
 				}
@@ -226,7 +232,8 @@ public class mainController {
 				}
 
 			}
-
+System.out.println("다음문제로 넘어갑니다.아무키나 입력해주세요");
+sc.next();
 		}
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
@@ -238,7 +245,7 @@ public class mainController {
 		Scanner sc = new Scanner(System.in);
 
 		int num = 100; // 점수
-		int order =1; //순서
+		int order = 1; // 순서
 
 		System.out.println("게임을 시작합니다. 두 곡의 제목을 맞추면 100점만점에 100점 ");
 
@@ -260,16 +267,16 @@ public class mainController {
 
 		}
 
-		for (int i = 0; i < index.length; i+=2) {
-			index[i]= rd.nextInt(30);
+		for (int i = 0; i < index.length; i += 2) {
+			index[i] = rd.nextInt(30);
 			songDTO sdto1 = mdao.selMusic(index[i]);
-			songDTO sdto2 = mdao.selMusic(index[i+1]);
-			
+			songDTO sdto2 = mdao.selMusic(index[i + 1]);
+
 			System.out.println(sdto1.getSong());
 			System.out.println(sdto2.getSong());
 
-			System.out.println(order+ 1 + "번째 음악을 재생합니다.");
-			
+			System.out.println(order + 1 + "번째 음악을 재생합니다.");
+
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
@@ -281,17 +288,17 @@ public class mainController {
 
 				// db에서 가수와 노래제목을 가져옴
 				// 두곡 모두 정답
-				boolean checkT1= t1_song.equals(sdto1.getSong())||t1_song.equalsIgnoreCase(sdto1.getEngSong());
-				boolean checkT2= t1_song.equals(sdto2.getSong())||t1_song.equalsIgnoreCase(sdto2.getEngSong());
-				boolean checkT3= t2_song.equals(sdto2.getSong())||t2_song.equalsIgnoreCase(sdto2.getEngSong());
-				boolean checkT4= t2_song.equals(sdto1.getSong())||t2_song.equalsIgnoreCase(sdto1.getEngSong());
-				
-				if ((checkT1 && checkT3)||(checkT2 && checkT4) ) {
+				boolean checkT1 = t1_song.equals(sdto1.getSong()) || t1_song.equalsIgnoreCase(sdto1.getEngSong());
+				boolean checkT2 = t1_song.equals(sdto2.getSong()) || t1_song.equalsIgnoreCase(sdto2.getEngSong());
+				boolean checkT3 = t2_song.equals(sdto2.getSong()) || t2_song.equalsIgnoreCase(sdto2.getEngSong());
+				boolean checkT4 = t2_song.equals(sdto1.getSong()) || t2_song.equalsIgnoreCase(sdto1.getEngSong());
+
+				if ((checkT1 && checkT3) || (checkT2 && checkT4)) {
 					num += 100;
 					System.out.println("와우!! 두곡 모두맞추셨네요. 100점 획득 " + num);
 					break;
 					// 한곡만 정답
-				} else if ((checkT1 ^ checkT3)||(checkT2 ^ checkT4)) {
+				} else if ((checkT1 ^ checkT3) || (checkT2 ^ checkT4)) {
 					num -= 20;
 					System.out.println("한곡은 맞추셨네요!! 한곡 더 맞혀봐요!! " + num);
 					// 모두 오답
@@ -312,7 +319,8 @@ public class mainController {
 						break;
 					}
 					if (hint.equals("2")) {
-						System.out.println("첫번째 초성은 : " + sdto1.getHintSong()+"  두번째 초성은 : "+sdto2.getHintSong() + " 입니다.");
+						System.out.println(
+								"첫번째 초성은 : " + sdto1.getHintSong() + "  두번째 초성은 : " + sdto2.getHintSong() + " 입니다.");
 						num -= 30;
 						break;
 					}
@@ -338,5 +346,14 @@ public class mainController {
 		}
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
+	}
+
+	public static void delay(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
