@@ -140,4 +140,10 @@ public class memberDAO {
 		}
 	}
 
+	public songDTO selMusic(songDTO sdao) {
+		
+		return null;
+		
+	}
+	
 }
