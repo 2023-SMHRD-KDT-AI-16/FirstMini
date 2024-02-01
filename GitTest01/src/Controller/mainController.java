@@ -8,13 +8,14 @@ import Model.memberDAO;
 import Model.memberDTO;
 import Model.songDTO;
 import View.asc;
+import javazoom.jl.player.MP3Player;
 
 public class mainController {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static Random rd = new Random();
 	public static asc show = new asc();
-
+	public static MP3Player mp3 = new MP3Player();
 	public static void main(String[] args) {
 		// 로그인 or 회원가입
 		boolean logEnd = false;
@@ -22,7 +23,9 @@ public class mainController {
 		memberDAO mdao = new memberDAO();
 
 		show.gameStart();
-
+		
+		mp3.play("../GitTest01/src/Music_LIst/거북이 - 비행기 MP3. 10초.m4a");
+		
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
@@ -161,7 +164,10 @@ public class mainController {
 			System.out.println(sdto.getSong());
 
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
+			mp3.play(sdto.getFolder());
+			System.err.println(sdto.getFolder());
 			
+			mp3.stop();
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
 				System.out.print("가수이름을 입력하세요>");
@@ -197,6 +203,10 @@ public class mainController {
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
+						mp3.play(sdto.getFolder());
+						System.err.println(sdto.getFolder());
+						
+						mp3.stop();
 						num -= 20;
 						break;
 					}
@@ -276,7 +286,7 @@ sc.next();
 			System.out.println(sdto2.getSong());
 
 			System.out.println(order + 1 + "번째 음악을 재생합니다.");
-
+			
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
