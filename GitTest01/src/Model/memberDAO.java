@@ -172,5 +172,84 @@ public class memberDAO {
 		}
 				
 	}
-	
+	public void setMax(String id,int max) {
+		getConn();
+		
+		try {
+			String sql = "update member set max = ? where id = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, max);
+			psmt.setString(2, id);
+			psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			allClose();
+		}
+		
+	}
+	public int getMax(String id) {
+		getConn();
+		
+		try {
+			String sql = "select max from member where id= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			int max = 0;
+			while(rs.next()) {
+				max = rs.getInt(1);
+			}
+			return max;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}finally {
+			allClose();
+		}
+		
+	}
+	public void setMax2(String id,int max) {
+		getConn();
+		
+		try {
+			String sql = "update member set max2 = ? where id = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, max);
+			psmt.setString(2, id);
+			psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			allClose();
+		}
+		
+	}
+	public int getMax2(String id) {
+		getConn();
+		
+		try {
+			String sql = "select max2 from member where id= ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			int max = 0;
+			while(rs.next()) {
+				max = rs.getInt(1);
+			}
+			return max;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}finally {
+			allClose();
+		}
+		
+	}
 }

@@ -16,14 +16,17 @@ public class mainController {
 	private static Random rd = new Random();
 	public static asc show = new asc();
 	public static MP3Player mp3 = new MP3Player();
+
 	public static void main(String[] args) {
 		// 로그인 or 회원가입
 		boolean logEnd = false;
 
 		memberDAO mdao = new memberDAO();
 
+		String log_id = null;
+
 		show.gameStart();
-				
+
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
@@ -66,7 +69,7 @@ public class mainController {
 			} else if (choice == 2) {
 				System.out.println("===로그인===");
 				System.out.print(" 아이디: ");
-				String log_id = sc.next();
+				log_id = sc.next();
 				System.out.print("비밀번호: ");
 				String log_pw = sc.next();
 
@@ -109,19 +112,22 @@ public class mainController {
 
 				System.out.println("당신은 " + numMax + "점을 획득하였습니다.");
 
-				// 한곡맞추기 클래스 호출//1
-				// 게임이 끝나면 점수만 리턴//
-				// 점수를 db에 넣기
-				// 랭킹 출력 클래스 호출 내림차순 출력
+				int max = mdao.getMax(log_id);
+
+				if (max < numMax) {
+					mdao.setMax(log_id, numMax);
+				}
 
 			} else if (num.equals("2")) {
 
 				int numMax = game2();
 				System.out.println("당신은 " + numMax + "점을 획득하였습니다.");
-				// 두곡맞추기 클래스 호출 //
-				// 게임이 끝나면 점수 리턴 //
-				// 점수를 db에 넣기
-				// 랭킹 출력 클래스 호출 내림차순 출력
+
+				int max2 = mdao.getMax2(log_id);
+
+				if (max2 < numMax) {
+					mdao.setMax2(log_id, numMax);
+				}
 
 			} else {
 				System.out.println("잘못된입력입니다.");
@@ -162,7 +168,6 @@ public class mainController {
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:01");
 			mp3.play(sdto.getFolder());
 			delay(1000);
-			
 
 			mp3.stop();
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
@@ -201,7 +206,7 @@ public class mainController {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						System.out.println("0:00 ───*̥❄︎‧˚─── 0:01");
 						mp3.play(sdto.getFolder());
-						delay(2000);						
+						delay(2000);
 						mp3.stop();
 						num -= 20;
 						break;
@@ -238,8 +243,8 @@ public class mainController {
 				}
 
 			}
-System.out.println("다음문제로 넘어갑니다.아무키나 입력해주세요");
-sc.next();
+			System.out.println("다음문제로 넘어갑니다.");
+
 		}
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
@@ -260,7 +265,7 @@ sc.next();
 
 		boolean pass = false;
 
-		int[] index = new int[5]; // 10개의 숫자를 선택
+		int[] index = new int[10]; // 10개의 숫자를 선택
 
 		for (int i = 0; i < index.length; i++) { // 중복제거
 			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
@@ -278,12 +283,12 @@ sc.next();
 			songDTO sdto1 = mdao.selMusic(index[i]);
 			songDTO sdto2 = mdao.selMusic(index[i + 1]);
 
-			System.out.println(sdto1.getSong());
-			System.out.println(sdto2.getSong());
+			System.out.println(order + 1 + "번째 음악을 10초 재생합니다.");
 
-			System.out.println(order + 1 + "번째 음악을 재생합니다.");
-			
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
+			mp3.play(sdto1.getFolder());
+			mp3.play(sdto2.getFolder());
+			delay(10000);
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
 				System.out.println("===띄어쓰기 없이 입력해주세요 :)===");
@@ -302,6 +307,7 @@ sc.next();
 				if ((checkT1 && checkT3) || (checkT2 && checkT4)) {
 					num += 100;
 					System.out.println("와우!! 두곡 모두맞추셨네요. 100점 획득 " + num);
+					show.answer();
 					break;
 					// 한곡만 정답
 				} else if ((checkT1 ^ checkT3) || (checkT2 ^ checkT4)) {
@@ -321,6 +327,9 @@ sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
+						mp3.play(sdto1.getFolder());
+						mp3.play(sdto2.getFolder());
+						delay(10000);
 						num -= 20;
 						break;
 					}
@@ -341,6 +350,7 @@ sc.next();
 					}
 				}
 				if (num <= 0) {
+					show.fail();
 					System.out.println("점수가 없어요 게임을 종료합니다.");
 					return num;
 				}
@@ -362,6 +372,5 @@ sc.next();
 			e.printStackTrace();
 		}
 	}
-	
 
 }
