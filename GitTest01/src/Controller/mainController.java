@@ -162,7 +162,7 @@ public class mainController {
 //			System.out.println(sdto.getSinger());  //확인용
 //			System.out.println(sdto.getSong());    //확인용
 
-			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
+			System.out.println("0:00 ───*̥❄︎‧˚─── 0:01");
 			mp3.play(sdto.getFolder());
 			delay(1000);
 			mp3.stop();
@@ -200,7 +200,7 @@ public class mainController {
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
-						System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
+						System.out.println("0:00 ───*̥❄︎‧˚─── 0:01");
 						mp3.play(sdto.getFolder());
 						delay(1000);
 						
