@@ -5,19 +5,19 @@ public class songDTO {
 	String singer;
 	String engSinger;
 	String song;
-	String engSing;
+	String engSong;
 	String hintSinger;
 	String hintSong;
-	String musicPath;
+	String folder;
 	
-	public songDTO(String singer, String engSinger, String song, String engSing, String hintSinger, String hintSong) {
+	public songDTO(String singer, String engSinger, String song, String engSong, String hintSinger, String hintSong, String folder) {
 		this.singer = singer;
 		this.engSinger = engSinger;
 		this.song = song;
-		this.engSing = engSing;
+		this.engSong = engSong;
 		this.hintSinger = hintSinger;
 		this.hintSong = hintSong;
-		this.musicPath = musicPath;
+		this.folder = folder;
 	}
 
 	public String getSinger() {
@@ -32,8 +32,8 @@ public class songDTO {
 		return song;
 	}
 
-	public String getEngSing() {
-		return engSing;
+	public String getEngSong() {
+		return engSong;
 	}
 
 	public String getHintSinger() {
@@ -44,8 +44,8 @@ public class songDTO {
 		return hintSong;
 	}
 	
-	public String getMusicPath() {
-		return musicPath;
+	public String getFolder() {
+		return folder;
 	}
 	
 }

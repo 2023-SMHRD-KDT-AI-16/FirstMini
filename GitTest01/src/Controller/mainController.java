@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import Model.memberDAO;
 import Model.memberDTO;
+import Model.songDTO;
 
 public class mainController {
 
@@ -17,8 +18,7 @@ public class mainController {
 
 		
 			memberDAO mdao = new memberDAO();
-			// ArrayList<memberDTO> dtoList = new ArrayList<memberDTO>();
-
+						
 			while (true) {
 				System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
 
@@ -130,7 +130,11 @@ public class mainController {
 		int num = 100; // 점수
 
 		System.out.println("게임을 시작합니다. 가수와제목을 맞추면 +100점 힌트는 감점이 있습니다.");
-
+		
+		memberDAO mdao = new memberDAO();
+		songDTO sdto = null;
+		
+		
 		boolean pass = false;
 
 		int[] index = new int[5]; // 5개의 숫자를 선택
@@ -149,6 +153,10 @@ public class mainController {
 		for (int i = 0; i < 5; i++) {
 
 			System.out.println(i + 1 + "번째 음악을 재생합니다.");
+			sdto = mdao.selMusic(index[i]);
+			System.out.println(sdto.getSinger());
+			System.out.println(sdto.getSong());
+			
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
@@ -158,14 +166,17 @@ public class mainController {
 				String singName = sc.next();
 
 				// db에서 가수와 노래제목을 가져옴
-				if (singerName.equals("gg") && singName.equals("pp")) {
+				if ((singerName.equals(sdto.getSinger())||singerName.equals(sdto.getEngSinger()))
+						&& (singName.equals(sdto.getSong())||singName.equals(sdto.getEngSong()))) {
 					num += 100;
 					System.out.println("맞았습니다.~ 100점 획득 " + num);
 					break;
-				} else if (singerName.equals("gg") && !singName.equals("pp")) {
+				} else if ((singerName.equals(sdto.getSinger())||singerName.equals(sdto.getEngSinger()))
+						&& !(singName.equals(sdto.getSong())||singName.equals(sdto.getEngSong()))) {
 					num -= 20;
 					System.out.println("가수이름만 맞았어요~~ " + num);
-				} else if (!singerName.equals("gg") && singName.equals("pp")) {
+				} else if (!(singerName.equals(sdto.getSinger())||singerName.equals(sdto.getEngSinger()))
+						&& (singName.equals(sdto.getSong())||singName.equals(sdto.getEngSong()))) {
 					num -= 20;
 					System.out.println("노래제목만 맞았어요~~ " + num);
 				} else {
@@ -185,12 +196,12 @@ public class mainController {
 						break;
 					}
 					if (hint.equals("2")) {
-						System.out.println("가수의 초성은 ㅇㅇㅇ 노래의 초성은 ㅇㅇㅇㅇ 입니다.");
+						System.out.println("가수의 초성은 "+sdto.getHintSinger()+" 입니다.");
 						num -= 40;
 						break;
 					}
 					if (hint.equals("3")) {
-						System.out.println("노래제목의 초성은 ㅇㅇㅇㅇㅇㅇㅇㅇ 입니다.");
+						System.out.println("노래제목의 초성은 "+sdto.getHintSong() +" 입니다.");
 						num -= 30;
 						break;
 					}
