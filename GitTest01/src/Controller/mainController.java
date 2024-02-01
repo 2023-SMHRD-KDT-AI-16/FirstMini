@@ -24,7 +24,7 @@ public class mainController {
 
 		show.gameStart();
 		
-		mp3.play("../GitTest01/src/Music_LIst/거북이 - 비행기 MP3. 10초.m4a");
+//		mp3.play("../GitTest01/src/Music_LIst/거북이 - 비행기 MP3. 10초.mp3");
 		
 		while (true) {
 			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
@@ -242,8 +242,8 @@ public class mainController {
 				}
 
 			}
-System.out.println("다음문제로 넘어갑니다.아무키나 입력해주세요");
-sc.next();
+System.out.println("다음문제로 넘어갑니다.");
+delay(2000);
 		}
 		System.out.println(" ˖♡ ⁺ ᘏ ⑅ ᘏ\r\n" + "˖°ฅ(  • · •  ฅ)\r\n" + "5문제를 모두 풀었습니다.");
 		return num;
