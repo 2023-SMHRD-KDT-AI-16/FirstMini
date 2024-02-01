@@ -164,7 +164,7 @@ public class mainController {
 
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 			mp3.play(sdto.getFolder());
-			delay(3000);
+			delay(1000);
 			mp3.stop();
 			// 음악 랜덤 출력 // 노래와 가수이름 리턴시킴
 			while (true) { // 계속반복 맞추면 break 점수가 0점이하면 종료
@@ -202,7 +202,7 @@ public class mainController {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
 						System.out.println("0:00 ───*̥❄︎‧˚─── 0:03");
 						mp3.play(sdto.getFolder());
-						delay(3000);
+						delay(1000);
 						
 						mp3.stop();
 						num -= 20;
