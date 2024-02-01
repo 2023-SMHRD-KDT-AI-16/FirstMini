@@ -170,10 +170,7 @@ public class memberDAO {
 		} finally {
 			allClose();
 		}
-		
-		
-		
-		
+				
 	}
 	
 }
