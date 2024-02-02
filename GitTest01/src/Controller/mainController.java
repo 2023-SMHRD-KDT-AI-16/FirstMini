@@ -1,6 +1,7 @@
 
 package Controller;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class mainController {
 	private static Random rd = new Random();
 	public static asc show = new asc();
 	public static MP3Player mp3 = new MP3Player();
+	public static boolean finalEnd = false;
 
 	public static void main(String[] args) {
 		// 로그인 or 회원가입
@@ -28,16 +30,11 @@ public class mainController {
 		show.gameStart();
 
 		while (true) {
-			System.out.println("1.회원가입 2.로그인 3.회원탈퇴 6.종료");
+			System.out.println("1.회원가입 2.로그인 3.회원탈퇴");
 
 			int choice = sc.nextInt();
 
-			if (choice == 6) {
-				System.out.println("종료합니다.");
-				break;
-
-				// =======회원가입
-			} else if (choice == 1) {
+			if (choice == 1) {
 				System.out.println("=== 회원가입 ===");
 
 				String join_id;
@@ -103,7 +100,7 @@ public class mainController {
 
 		while (true) {
 			System.out.println("========================음악이름 맞추기 게임==========================");
-			System.out.println("===================1.한곡맞추기  2.두곡맞추기(동시재생)==================");
+			System.out.println("================1.한곡맞추기  2.두곡맞추기(동시재생) 3.게임 종료============");
 
 			String num = sc.next();
 			if (num.equals("1")) {
@@ -118,6 +115,17 @@ public class mainController {
 					mdao.setMax(log_id, numMax);
 				}
 
+				ArrayList<memberDTO> mdto2 = new ArrayList<memberDTO>();
+				mdto2 = mdao.rank();
+
+				int ran = 1;
+				for (memberDTO x : mdto2) {
+					System.out.println("===================명예의전당===================");
+					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran, x.getId(), x.getName(), x.getMax());
+
+					ran++;
+				} // 게임1번 랭킹 출력
+
 			} else if (num.equals("2")) {
 
 				int numMax = game2();
@@ -129,8 +137,25 @@ public class mainController {
 					mdao.setMax2(log_id, numMax);
 				}
 
+				ArrayList<memberDTO> mdto3 = new ArrayList<memberDTO>();
+				mdto3 = mdao.rank2();
+
+				int ran2 = 1;
+				System.out.println("===================명예의전당===================");
+				for (memberDTO x : mdto3) {
+					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran2, x.getId(), x.getName(), x.getMax());
+					ran2++;
+				}
+
+			} else if (num.equals("3")) {
+				System.out.println("게임을 종료합니다.");
+				finalEnd = true;
 			} else {
-				System.out.println("잘못된입력입니다.");
+				System.out.println("잘못된 입력입니다.");
+			}
+
+			if (finalEnd) {
+				break;
 			}
 
 		}
@@ -151,7 +176,7 @@ public class mainController {
 		int[] index = new int[5]; // 5개의 숫자를 선택
 
 		for (int i = 0; i < 5; i++) { // 중복제거
-			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
+			index[i] = rd.nextInt(30) + 1; // 0~29 사이 숫자생성
 			for (int j = 0; j < i; j++) { // 중복제거
 				if (index[i] == index[j]) {
 					i--;
@@ -196,39 +221,43 @@ public class mainController {
 					num -= 20;
 					System.out.println("맞은게 없어요~~ 현재점수 : " + num);
 				}
-
+				if (num <= 0) {
+					show.fail();
+					System.out.println("점수가 없어요 게임을 종료합니다.");
+					return num;
+				}
 				System.out.println("힌트를 받으시겠습니까?");
 
 				while (true) {
-					System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)=5.힌트없이 다시입력===");
+					System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)=5.힌트없이 다시입력=6.종료==");
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
-						System.out.println("0:00 ───*̥❄︎‧˚─── 0:01");
+						System.out.println("0:00 ───*̥❄︎‧˚─── 0:02");
 						mp3.play(sdto.getFolder());
 						delay(2000);
 						mp3.stop();
 						num -= 20;
 						break;
-					}
-					if (hint.equals("2")) {
+					} else if (hint.equals("2")) {
 						System.out.println("가수의 초성은 " + sdto.getHintSinger() + " 입니다.");
-						num -= 40;
+						num -= 30;
 						break;
-					}
-					if (hint.equals("3")) {
+					} else if (hint.equals("3")) {
 						System.out.println("노래제목의 초성은 " + sdto.getHintSong() + " 입니다.");
 						num -= 30;
 						break;
-					}
-					if (hint.equals("4")) {
+					} else if (hint.equals("4")) {
 						System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
 						pass = true;
 						break;
-					}
-					if (hint.equals("5")) {
+					} else if (hint.equals("5")) {
 						System.out.println("힌트없이 다시한번 입력합니다.");
 						break;
+					} else if (hint.equals("6")) {
+						System.err.println("게임을 종료합니다.");
+						finalEnd = true;
+						return num;
 					}
 
 				}
@@ -268,7 +297,7 @@ public class mainController {
 		int[] index = new int[10]; // 10개의 숫자를 선택
 
 		for (int i = 0; i < index.length; i++) { // 중복제거
-			index[i] = rd.nextInt(30); // 0~29 사이 숫자생성
+			index[i] = rd.nextInt(30) + 1; // 0~29 사이 숫자생성
 			for (int j = 0; j < i; j++) { // 중복제거
 				if (index[i] == index[j]) {
 					i--;
@@ -306,23 +335,27 @@ public class mainController {
 
 				if ((checkT1 && checkT3) || (checkT2 && checkT4)) {
 					num += 100;
-					System.out.println("와우!! 두곡 모두맞추셨네요. 100점 획득 " + num);
+					System.out.println("와우!! 두곡 모두맞추셨네요.  현재점수 : " + num);
 					show.answer();
 					break;
 					// 한곡만 정답
 				} else if ((checkT1 ^ checkT3) || (checkT2 ^ checkT4)) {
 					num -= 20;
-					System.out.println("한곡은 맞추셨네요!! 한곡 더 맞혀봐요!! " + num);
+					System.out.println("한곡은 맞추셨네요!! 한곡 더 맞혀봐요!! 현재점수 : " + num);
 					// 모두 오답
 				} else {
 					num -= 20;
-					System.out.println("이런이런~모두 정답이 아니에요" + num);
+					System.out.println("이런이런~모두 정답이 아니에요 현재점수 : " + num);
 				}
-
+				if (num <= 0) {
+					show.fail();
+					System.out.println("점수가 없어요 게임을 종료합니다.");
+					return num;
+				}
 				System.out.println("힌트를 받으시겠습니까?");
 
 				while (true) {
-					System.out.println("=====1.다시듣기(-20점)=2.노래초성힌트(-30)=3.PASS(감점없음)=4.힌트없이 다시입력===");
+					System.out.println("=====1.다시듣기(-20점)=2.노래초성힌트(-30)=3.PASS(감점없음)=4.힌트없이 다시입력=5.종료하기==");
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
@@ -332,21 +365,22 @@ public class mainController {
 						delay(10000);
 						num -= 20;
 						break;
-					}
-					if (hint.equals("2")) {
+					} else if (hint.equals("2")) {
 						System.out.println(
 								"첫번째 초성은 : " + sdto1.getHintSong() + "  두번째 초성은 : " + sdto2.getHintSong() + " 입니다.");
 						num -= 30;
 						break;
-					}
-					if (hint.equals("3")) {
+					} else if (hint.equals("3")) {
 						System.out.println("노래가 좀 어려웠나요 이노래는 PASS 합니다.");
 						pass = true;
 						break;
-					}
-					if (hint.equals("4")) {
+					} else if (hint.equals("4")) {
 						System.out.println("힌트없이 다시한번 입력합니다.");
 						break;
+					} else if (hint.equals("5")) {
+						System.err.println("게임을 종료합니다.");
+						finalEnd = true;
+						return num;
 					}
 				}
 				if (num <= 0) {

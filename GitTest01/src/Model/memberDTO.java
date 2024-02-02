@@ -5,6 +5,7 @@ public class memberDTO {
 	private String pw;
 	private String Name;
 	private int Max;
+	private int Max2;
 	
 	public memberDTO() {}
 	
@@ -12,6 +13,12 @@ public class memberDTO {
 		this.id = id;
 		this.pw = pw;
 		this.Name = name;		
+	}
+	public memberDTO(String id,String name, int max,int max2) {
+		this.id = id;
+		this.Name = name;
+		this.Max = max;	
+		this.Max2 = max2;
 	}
 
 	public String getId() {
@@ -41,6 +48,11 @@ public class memberDTO {
 	public int getMax() {
 		return Max;
 	}
+	
+	public int getMax2() {
+		return Max2;
+	}
+
 
 	public void setMax(int max) {
 		Max = max;

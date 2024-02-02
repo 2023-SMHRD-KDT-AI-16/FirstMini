@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Controller.songDTO;
-import Model.memberDTO;
-
 public class memberDAO {
 
 	private Connection conn = null;
@@ -142,17 +139,16 @@ public class memberDAO {
 	}
 
 	public songDTO selMusic(int index) {
-		
+
 		getConn();
 		try {
 			String sql = "SELECT * FROM (SELECT ROWNUM AS NUM,SINGER,SINGERE,SONG,SONGE,SINGERH,SONGH,FOLDER from song_list)X WHERE X.NUM = ?";
 			psmt = conn.prepareStatement(sql);
-			//System.out.println("flag");
 			psmt.setInt(1, index);
-			
+
 			rs = psmt.executeQuery();
-			songDTO sdto= null; 				
-			while(rs.next()) {
+			songDTO sdto = null;
+			while (rs.next()) {
 				String select_singer = rs.getString(2);
 				String select_singerEng = rs.getString(3);
 				String select_song = rs.getString(4);
@@ -160,9 +156,9 @@ public class memberDAO {
 				String select_hint = rs.getString(6);
 				String select_hintSong = rs.getString(7);
 				String select_path = rs.getString(8);
-								
-				sdto = new songDTO(select_singer,select_singerEng,select_song
-						,select_songEng,select_hint,select_hintSong,select_path);
+
+				sdto = new songDTO(select_singer, select_singerEng, select_song, select_songEng, select_hint,
+						select_hintSong, select_path);
 			}
 			return sdto;
 		} catch (SQLException e) {
@@ -171,68 +167,87 @@ public class memberDAO {
 		} finally {
 			allClose();
 		}
-//		====================================================
-//		public ArrayList<songDTO> selMusic() {
-//			ArrayList<songDTO> dtoList = new ArrayList<songDTO>();
-//			
-//			getConn();
-//			try {
-//				String sql = "select *\r\n"
-//						+ "from ( select *  \r\n"
-//						+ "       from member\r\n"
-//						+ "       where max is not null\r\n"
-//						+ "       order by max desc )\r\n"
-//						+ "where rownum<=5;";
-//				psmt = conn.prepareStatement(sql);
-//				rs = psmt.executeQuery();
-//				while (rs.next()) {
-//					String id = rs.getString(1);
-//					String table_pw = rs.getString(2);
-//					String name = rs.getString(3);
-//					int age = rs.getInt(4);
-//					songDTO sdto = new songDTO(id, table_pw, name, age);
-//					dtoList.add(sdto);
-//				} 
-//				return dtoList;
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//				return null;
-//			} finally {
-//				allClose();
-//			}
-//		}
-		
-		
-				
 	}
-	public void setMax(String id,int max) {
+
+	public ArrayList<memberDTO> rank() {
+		ArrayList<memberDTO> dtoList = new ArrayList<memberDTO>();
+
 		getConn();
-		
+		try {
+			String sql = "select * from (select * from member where max is not null order by max desc)where rownum<=5";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String name = rs.getString(3);
+				int max1 = rs.getInt(4);
+				memberDTO mdto = new memberDTO(id,name, max1,0);
+				dtoList.add(mdto);
+			}
+			return dtoList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+	}
+
+	public ArrayList<memberDTO> rank2() {
+		ArrayList<memberDTO> dtoList = new ArrayList<memberDTO>();
+
+		getConn();
+		try {
+			String sql = "select * from (select * from member where max2 is not null order by max2 desc)where rownum<=5";
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String name = rs.getString(3);
+				int max2 = rs.getInt(5);
+				memberDTO mdto = new memberDTO(id,name,0,max2);
+				dtoList.add(mdto);
+			}
+			return dtoList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			allClose();
+		}
+	}
+	
+	
+	
+	public void setMax(String id, int max) {
+		getConn();
+
 		try {
 			String sql = "update member set max = ? where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, max);
 			psmt.setString(2, id);
 			psmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			allClose();
 		}
-		
+
 	}
+
 	public int getMax(String id) {
 		getConn();
-		
+
 		try {
 			String sql = "select max from member where id= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
 			int max = 0;
-			while(rs.next()) {
+			while (rs.next()) {
 				max = rs.getInt(1);
 			}
 			return max;
@@ -240,39 +255,41 @@ public class memberDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
-		}finally {
+		} finally {
 			allClose();
 		}
-		
+
 	}
-	public void setMax2(String id,int max) {
+
+	public void setMax2(String id, int max) {
 		getConn();
-		
+
 		try {
 			String sql = "update member set max2 = ? where id = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, max);
 			psmt.setString(2, id);
 			psmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			allClose();
 		}
-		
+
 	}
+
 	public int getMax2(String id) {
 		getConn();
-		
+
 		try {
 			String sql = "select max2 from member where id= ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
 			int max = 0;
-			while(rs.next()) {
+			while (rs.next()) {
 				max = rs.getInt(1);
 			}
 			return max;
@@ -280,9 +297,9 @@ public class memberDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
-		}finally {
+		} finally {
 			allClose();
 		}
-		
+
 	}
 }
