@@ -144,7 +144,7 @@ public class mainController {
 				int ran2 = 1;
 				System.out.println("===================두곡맞추기 명예의전당===================");
 				for (memberDTO x : mdto3) {
-					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran2, x.getId(), x.getName(), x.getMax());
+					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran2, x.getId(), x.getName(), x.getMax2());
 					ran2++;
 				}
 
@@ -314,7 +314,7 @@ public class mainController {
 			songDTO sdto2 = mdao.selMusic(index[i + 1]);
 
 			System.out.println(order + 1 + "번째 음악을 10초 재생합니다.");
-
+			order++;
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
 			mp3.play(sdto1.getFolder());
 			mp3.play(sdto2.getFolder());
