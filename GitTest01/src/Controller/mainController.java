@@ -229,7 +229,8 @@ public class mainController {
 				System.out.println("힌트를 받으시겠습니까?");
 
 				while (true) {
-					System.out.print("=====1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)=5.힌트없이 다시입력=6.종료==");
+					System.out.println("==1.다시듣기(-20점)=2.가수초성힌트(-30점)=3.노래초성힌트(-30)=4.PASS(감점없음)=5.힌트없이 다시입력=6.종료==");
+					System.out.print("번호입력 >>");
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
@@ -355,7 +356,8 @@ public class mainController {
 				System.out.println("힌트를 받으시겠습니까?");
 
 				while (true) {
-					System.out.println("=====1.다시듣기(-20점)=2.노래초성힌트(-30)=3.PASS(감점없음)=4.힌트없이 다시입력=5.종료하기==");
+					System.out.println("==1.다시듣기(-20점)=2.노래초성힌트(-30)=3.PASS(감점없음)=4.힌트없이 다시입력=5.종료하기==");
+					System.out.print("번호입력 >>");
 					String hint = sc.next();
 					if (hint.equals("1")) {
 						System.out.println("음악을 다시 플레이합니다."); // 음악 플레이
