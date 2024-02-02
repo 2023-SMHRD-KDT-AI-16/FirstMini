@@ -313,7 +313,7 @@ public class mainController {
 			songDTO sdto1 = mdao.selMusic(index[i]);
 			songDTO sdto2 = mdao.selMusic(index[i + 1]);
 
-			System.out.println(order + 1 + "번째 음악을 10초 재생합니다.");
+			System.out.println(order + "번째 음악을 10초 재생합니다.");
 			order++;
 			System.out.println("0:00 ───*̥❄︎‧˚─── 0:10");
 			mp3.play(sdto1.getFolder());
