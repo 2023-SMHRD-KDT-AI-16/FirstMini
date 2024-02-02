@@ -21,6 +21,7 @@ public class mainController {
 
 	public static void main(String[] args) {
 		// 로그인 or 회원가입
+		
 		boolean logEnd = false;
 
 		memberDAO mdao = new memberDAO();
@@ -119,8 +120,8 @@ public class mainController {
 				mdto2 = mdao.rank();
 
 				int ran = 1;
+				System.out.println("===================명예의전당===================");
 				for (memberDTO x : mdto2) {
-					System.out.println("===================명예의전당===================");
 					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran, x.getId(), x.getName(), x.getMax());
 
 					ran++;
@@ -157,7 +158,6 @@ public class mainController {
 			if (finalEnd) {
 				break;
 			}
-
 		}
 
 	}
