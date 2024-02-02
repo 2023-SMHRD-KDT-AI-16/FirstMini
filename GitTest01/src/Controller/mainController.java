@@ -120,7 +120,7 @@ public class mainController {
 				mdto2 = mdao.rank();
 
 				int ran = 1;
-				System.out.println("===================명예의전당===================");
+				System.out.println("===================한곡맞추기 명예의전당===================");
 				for (memberDTO x : mdto2) {
 					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran, x.getId(), x.getName(), x.getMax());
 
@@ -142,7 +142,7 @@ public class mainController {
 				mdto3 = mdao.rank2();
 
 				int ran2 = 1;
-				System.out.println("===================명예의전당===================");
+				System.out.println("===================두곡맞추기 명예의전당===================");
 				for (memberDTO x : mdto3) {
 					System.out.printf("%d등  ID: %-10s이름: %-10s점수: %-10d%n", ran2, x.getId(), x.getName(), x.getMax());
 					ran2++;
